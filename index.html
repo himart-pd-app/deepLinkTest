@@ -63,8 +63,8 @@
   <button onclick="openScheme()">window.location.href 테스트</button>
   <!-- <button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
   <button onclick="openAsLink()">a 태그 테스트</button> -->
-  <button onclick="runAosApp()">에누리 AOS 테스트2</button>
-  <button onclick="runIosApp()">에누리 iOS 테스트2</button>
+  <!-- <button onclick="runAosApp()">에누리 AOS 테스트2</button>
+  <button onclick="runIosApp()">에누리 iOS 테스트2</button> -->
 
   <script>
     var appCheckTimer = null;
@@ -107,6 +107,32 @@
 		iframe.src = scheme;
 		document.body.appendChild(iframe);
 	}
+	  
+	  function runAosAppOld() {
+		  const clickedAt = +new Date;
+		  appCheckTimer = setTimeout(function() {
+			  if (+new Date - clickedAt < 3000) {
+				  window.location.replace(_APP_DEEP_LINK_URL);
+			  } else {
+				  window.close();
+			  }
+		  }, 2500);
+		  window.location.href = 'intent://' + _APP_DEEP_LINK_URL + '#Intent;scheme=himartapp;package=com.himart.main;end'		
+			  window.addEventListener('pagehide', preventPopup);
+	  }
+	  
+	  function runIosAppOld() {
+		  const clickedAt = +new Date;
+		  appCheckTimer = setTimeout(function() {
+			  if (+new Date - clickedAt < 500) {
+				  window.location.replace(_APP_DEEP_LINK_URL);
+			  } else {
+				  window.close();
+			  }
+		  }, 200);
+		  window.location.href = _APP_DEEP_LINK;
+		  window.addEventListener('pagehide', preventPopup);
+	  }
     
     function openScheme() {
       const url = document.getElementById('scheme').value.trim();
