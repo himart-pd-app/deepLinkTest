@@ -63,8 +63,39 @@
   <button onclick="openScheme()">window.location.href 테스트</button>
   <!-- <button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
   <button onclick="openAsLink()">a 태그 테스트</button> -->
+  <button onclick="runAosApp()">에누리 AOS 테스트</button>
+  <button onclick="runAppIos()">에누리 iOS 테스트</button>
 
   <script>
+    var appCheckTimer;
+
+    function preventPopup(){
+			clearTimeout(appCheckTimer);
+			appCheckTimer = null;
+			window.removeEventListener('pagehide', preventPopup);
+		}
+
+    function runAosApp() {
+      const url = document.getElementById('scheme').value.trim();
+			appCheckTimer = setTimeout(function() {
+                window.location.replace(url);
+			}, 1500);
+            window.addEventListener('pagehide', preventPopup);
+			window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+		}
+
+    function runAppIos() {
+      const url = document.getElementById('scheme').value.trim();
+			appCheckTimer = setTimeout(function() {
+                window.location.replace(url);
+			}, 1500);
+            window.addEventListener('pagehide', preventPopup);
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = url;
+            document.body.appendChild(iframe);
+		}
+    
     function openScheme() {
       const url = document.getElementById('scheme').value.trim();
       if (!url) return alert("URL 또는 스킴을 입력하세요.");
