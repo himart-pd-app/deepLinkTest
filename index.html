@@ -1,55 +1,99 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<title>DeepLink Test</title>
-<style>
-    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px; line-height:1.6; }
-    input { width: 100%; padding: 10px; margin-top: 10px; }
-    button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepLink Test</title>
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+      padding: 24px; 
+      line-height: 1.8; 
+      font-size: 20px;
+    }
+    h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 16px;
+      margin-top: 16px;
+      font-size: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 16px;
+      font-size: 22px;
+      background: #0366d6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:nth-of-type(2) {
+      background: #28a745;
+    }
+    button:nth-of-type(3) {
+      background: #6f42c1;
+    }
+    button:active {
+      opacity: 0.85;
+    }
+  </style>
 </head>
 <body>
 
-<h2>📱 DeepLink 테스트 페이지</h2>
+  <h2>📱 DeepLink 테스트 페이지</h2>
 
-<p>아래 스킴 또는 URL을 넣고 버튼을 누르면,<br>
-Safari/Chrome/인앱 브라우저에서 <b>실제 window.location.href로 호출한 것과 동일하게</b> 동작합니다.</p>
+  <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
+  Safari / Chrome / 인앱 브라우저에서 <b>window.location.href / iframe / a태그 호출</b>이 어떻게 동작하는지를 실제로 확인할 수 있습니다.</p>
 
-<input id="scheme" type="text" placeholder="예: himartapp://test 또는 appScheme://https://url" />
+  <!-- 기본 테스트 값 자동 입력 -->
+  <input 
+    id="scheme" 
+    type="text" 
+    placeholder="예: himartapp://url 형식" 
+    value="himartapp://https://www.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0005779761"
+  />
 
-<button onclick="openScheme()">window.location.href 테스트</button>
-<button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
-<button onclick="openAsLink()">a태그로 테스트</button>
+  <button onclick="openScheme()">window.location.href 테스트</button>
+  <!-- <button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
+  <button onclick="openAsLink()">a 태그 테스트</button> -->
 
-<script>
-function openScheme() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL/스킴을 입력하세요.");
-    console.log("window.location.href =", url);
-    window.location.href = url;
-}
+  <script>
+    function openScheme() {
+      const url = document.getElementById('scheme').value.trim();
+      if (!url) return alert("URL 또는 스킴을 입력하세요.");
+      console.log("window.location.href =", url);
+      window.location.href = url;
+    }
 
-function openByIframe() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL/스킴을 입력하세요.");
-    console.log("iframe.src =", url);
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
-}
+    function openByIframe() {
+      const url = document.getElementById('scheme').value.trim();
+      if (!url) return alert("URL 또는 스킴을 입력하세요.");
+      console.log("iframe.src =", url);
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+    }
 
-function openAsLink() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL/스킴을 입력하세요.");
-    const a = document.createElement('a');
-    a.href = url;
-    a.innerText = "테스트 링크";
-    a.style.display = 'block';
-    document.body.appendChild(a);
-}
-</script>
+    function openAsLink() {
+      const url = document.getElementById('scheme').value.trim();
+      if (!url) return alert("URL 또는 스킴을 입력하세요.");
+      const a = document.createElement('a');
+      a.href = url;
+      a.innerText = "테스트 링크 (클릭)";
+      a.style.display = 'block';
+      a.style.fontSize = "22px";
+      a.style.marginTop = "16px";
+      document.body.appendChild(a);
+    }
+  </script>
 
 </body>
 </html>
