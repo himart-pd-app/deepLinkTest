@@ -1,71 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8" />
+<title>DeepLink Test</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px; line-height:1.6; }
+    input { width: 100%; padding: 10px; margin-top: 10px; }
+    button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }
+</style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1">&lt;title&gt;DeepLink Test&lt;/title&gt;</p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px; line-height:1.6; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>input { width: 100%; padding: 10px; margin-top: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;📱 DeepLink 테스트 페이지&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;아래 스킴 또는 URL을 넣고 버튼을 누르면,&lt;br&gt;</p>
-<p class="p1">Safari/Chrome/인앱 브라우저에서 &lt;b&gt;실제 window.location.href로 호출한 것과 동일하게&lt;/b&gt; 동작합니다.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input id="scheme" type="text" placeholder="예: himartapp://test 또는 appScheme://https://url" /&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button onclick="openScheme()"&gt;window.location.href 테스트&lt;/button&gt;</p>
-<p class="p1">&lt;button onclick="openByIframe()"&gt;iframe 방식 테스트 (iOS 스킴 추천)&lt;/button&gt;</p>
-<p class="p1">&lt;button onclick="openAsLink()"&gt;a태그로 테스트&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">function openScheme() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const url = document.getElementById('scheme').value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (!url) return alert("URL/스킴을 입력하세요.");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>console.log("window.location.href =", url);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>window.location.href = url;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function openByIframe() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const url = document.getElementById('scheme').value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (!url) return alert("URL/스킴을 입력하세요.");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>console.log("iframe.src =", url);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const iframe = document.createElement('iframe');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>iframe.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>iframe.src = url;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.body.appendChild(iframe);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function openAsLink() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const url = document.getElementById('scheme').value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (!url) return alert("URL/스킴을 입력하세요.");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const a = document.createElement('a');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>a.href = url;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>a.innerText = "테스트 링크";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>a.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.body.appendChild(a);</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<h2>📱 DeepLink 테스트 페이지</h2>
+
+<p>아래 스킴 또는 URL을 넣고 버튼을 누르면,<br>
+Safari/Chrome/인앱 브라우저에서 <b>실제 window.location.href로 호출한 것과 동일하게</b> 동작합니다.</p>
+
+<input id="scheme" type="text" placeholder="예: himartapp://test 또는 appScheme://https://url" />
+
+<button onclick="openScheme()">window.location.href 테스트</button>
+<button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
+<button onclick="openAsLink()">a태그로 테스트</button>
+
+<script>
+function openScheme() {
+    const url = document.getElementById('scheme').value.trim();
+    if (!url) return alert("URL/스킴을 입력하세요.");
+    console.log("window.location.href =", url);
+    window.location.href = url;
+}
+
+function openByIframe() {
+    const url = document.getElementById('scheme').value.trim();
+    if (!url) return alert("URL/스킴을 입력하세요.");
+    console.log("iframe.src =", url);
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+}
+
+function openAsLink() {
+    const url = document.getElementById('scheme').value.trim();
+    if (!url) return alert("URL/스킴을 입력하세요.");
+    const a = document.createElement('a');
+    a.href = url;
+    a.innerText = "테스트 링크";
+    a.style.display = 'block';
+    document.body.appendChild(a);
+}
+</script>
+
 </body>
 </html>
