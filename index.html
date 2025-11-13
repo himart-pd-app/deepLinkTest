@@ -70,31 +70,32 @@
     var appCheckTimer;
 
     function preventPopup(){
-			clearTimeout(appCheckTimer);
-			appCheckTimer = null;
-			window.removeEventListener('pagehide', preventPopup);
-		}
+		clearTimeout(appCheckTimer);
+		appCheckTimer = null;
+		window.removeEventListener('pagehide', preventPopup);
+	}
 
     function runAosApp() {
-      const url = document.getElementById('scheme').value.trim();
-			appCheckTimer = setTimeout(function() {
-                window.location.replace(url);
-			}, 1500);
-            window.addEventListener('pagehide', preventPopup);
-			window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-		}
+	    const url = document.getElementById('scheme').value.trim().replace("himartapp://", "");
+		appCheckTimer = setTimeout(function() {
+			window.location.replace(url);
+		}, 1500);
+		window.addEventListener('pagehide', preventPopup);
+		window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+	}
 
     function runAppIos() {
-      const url = document.getElementById('scheme').value.trim();
-			appCheckTimer = setTimeout(function() {
-                window.location.replace(url);
-			}, 1500);
-            window.addEventListener('pagehide', preventPopup);
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = url;
-            document.body.appendChild(iframe);
-		}
+		const scheme = document.getElementById('scheme').value.trim();
+		const url = scheme.replace("himartapp://", "");
+		appCheckTimer = setTimeout(function() {
+			window.location.replace(url);
+		}, 1500);
+		window.addEventListener('pagehide', preventPopup);
+		const iframe = document.createElement('iframe');
+		iframe.style.display = 'none';
+		iframe.src = scheme;
+		document.body.appendChild(iframe);
+	}
     
     function openScheme() {
       const url = document.getElementById('scheme').value.trim();
