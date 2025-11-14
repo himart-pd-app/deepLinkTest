@@ -72,58 +72,69 @@
     var appCheckTimer = null;
 
     function preventPopup(){
-		if (appCheckTimer) {
-			clearTimeout(appCheckTimer);
-			appCheckTimer = null;
-		}
-		window.removeEventListener('pagehide', preventPopup);
-		document.removeEventListener('visibilitychange', onVisibilityChange);
-	}
+  		if (appCheckTimer) {
+  			clearTimeout(appCheckTimer);
+  			appCheckTimer = null;
+  		}
+  		window.removeEventListener('pagehide', preventPopup);
+  		document.removeEventListener('visibilitychange', onVisibilityChange);
+  	}
 
-	function onVisibilityChange() {
-		if (document.hidden) {
-			preventPopup();
-		}
-	}
+  	function onVisibilityChange() {
+  		if (document.hidden) {
+  			preventPopup();
+  		}
+  	}
 
+    function setupFallbackTimer(url, delayMs, thresholdMs) {
+      const clickedAt = Date.now();
+    
+      appCheckTimer = setTimeout(function() {
+        const diff = Date.now() - clickedAt;
+        if (diff < thresholdMs) {
+          window.location.replace(url);
+        }
+        preventPopup();
+      }, delayMs);
+    
+      window.addEventListener('pagehide', preventPopup);
+      document.addEventListener('visibilitychange', onVisibilityChange);
+    }
+  
     function runAosApp() {
-	    const url = document.getElementById('scheme').value.trim().replace("himartapp://", "");
-		appCheckTimer = setTimeout(function() {
-			window.location.replace(url);
-		}, 1500);
-		window.addEventListener('pagehide', preventPopup);
-		document.addEventListener('visibilitychange', onVisibilityChange);
-		window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-	}
+      const url = document.getElementById('scheme').value.trim().replace("himartapp://", "");
 
+      setupFallbackTimer(url, 1500, 3000);
+      
+      window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+    }
+  
     function runIosApp() {
-		const scheme = document.getElementById('scheme').value.trim();
-		const url = scheme.replace("himartapp://", "");
-		appCheckTimer = setTimeout(function() {
-			window.location.replace(url);
-		}, 1500);
-		window.addEventListener('pagehide', preventPopup);
-		document.addEventListener('visibilitychange', onVisibilityChange);
-		const iframe = document.createElement('iframe');
-		iframe.style.display = 'none';
-		iframe.src = scheme;
-		document.body.appendChild(iframe);
-	}
-	  
-	  function runAosAppOld() {
-		  const scheme = document.getElementById('scheme').value.trim();
-		  const url = scheme.replace("himartapp://", "");
-		  const clickedAt = +new Date;
-		  appCheckTimer = setTimeout(function() {
-			  if (+new Date - clickedAt < 3000) {
-				  window.location.replace(url);
-			  } else {
-				  window.close();
-			  }
-		  }, 2500);
-		  window.location.href = 'intent://' + url + '#Intent;scheme=himartapp;package=com.himart.main;end'		
-		  window.addEventListener('pagehide', preventPopup);
-	  }
+  		const scheme = document.getElementById('scheme').value.trim();
+  		const url = scheme.replace("himartapp://", "");
+  		
+      setupFallbackTimer(url, 1500, 3000);
+      
+  		const iframe = document.createElement('iframe');
+  		iframe.style.display = 'none';
+  		iframe.src = scheme;
+  		document.body.appendChild(iframe);
+  	}
+  	  
+    function runAosAppOld() {
+      const scheme = document.getElementById('scheme').value.trim();
+      const url = scheme.replace("himartapp://", "");
+      const clickedAt = +new Date;
+      appCheckTimer = setTimeout(function() {
+        if (+new Date - clickedAt < 3000) {
+          window.location.replace(url);
+        } else {
+          window.close();
+        }
+      }, 2500);
+      window.location.href = 'intent://' + url + '#Intent;scheme=himartapp;package=com.himart.main;end'		
+      window.addEventListener('pagehide', preventPopup);
+    }
 	  
 	  function runIosAppOld() {
 		  const scheme = document.getElementById('scheme').value.trim();
