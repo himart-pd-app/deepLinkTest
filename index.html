@@ -58,82 +58,30 @@
   Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출 테스트를 할 수 있습니다.</p>
 
   <!-- 기본 테스트 값 자동 입력 -->
-  <textarea id="scheme" placeholder="예: himartapp://url 형식">https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=</textarea>
+  <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
 
+  <button onclick="setScheme()">스키마 호출 테스트</button>
+  <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
+  <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
+	<br>
   <button onclick="openScheme()">window.location.href 테스트</button>
-  <!-- <button onclick="openByIframe()">iframe 방식 테스트 (iOS 스킴 추천)</button>
-  <button onclick="openAsLink()">a 태그 테스트</button> -->
-  <!-- <button onclick="runAosApp()">에누리 AOS 테스트2</button>
-  <button onclick="runIosApp()">에누리 iOS 테스트2</button> -->
 
-  <script>
-    var appCheckTimer = null;
-
-    function preventPopup(){
-		if (appCheckTimer) {
-			clearTimeout(appCheckTimer);
-			appCheckTimer = null;
-		}
-		window.removeEventListener('pagehide', preventPopup);
-		document.removeEventListener('visibilitychange', onVisibilityChange);
-	}
-
-	function onVisibilityChange() {
-		if (document.hidden) {
-			preventPopup();
-		}
-	}
-
-  function runAosApp() {
-    const url = document.getElementById('scheme').value.trim().replace("himartapp://", "");
-		appCheckTimer = setTimeout(function() {
-			window.location.replace(url);
-		}, 1500);
-		window.addEventListener('pagehide', preventPopup);
-		document.addEventListener('visibilitychange', onVisibilityChange);
-		window.location.href = 'intent://open#Intent;scheme=himartapp;package=com.himart.main;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-	}
-
-  function runIosApp() {
-		const scheme = document.getElementById('scheme').value.trim();
-		const url = scheme.replace("himartapp://", "");
-		appCheckTimer = setTimeout(function() {
-			window.location.replace(url);
-		}, 1500);
-		window.addEventListener('pagehide', preventPopup);
-		document.addEventListener('visibilitychange', onVisibilityChange);
-		const iframe = document.createElement('iframe');
-		iframe.style.display = 'none';
-		iframe.src = scheme;
-		document.body.appendChild(iframe);
-	}
-	  
-  function runAosAppOld() {
-    const clickedAt = +new Date;
-    appCheckTimer = setTimeout(function() {
-      if (+new Date - clickedAt < 3000) {
-        window.location.replace(_APP_DEEP_LINK_URL);
-      } else {
-        window.close();
-      }
-    }, 2500);
-    window.location.href = 'intent://' + _APP_DEEP_LINK_URL + '#Intent;scheme=himartapp;package=com.himart.main;end'		
-    window.addEventListener('pagehide', preventPopup);
-  }
-	  
-  function runIosAppOld() {
-    const clickedAt = +new Date;
-    appCheckTimer = setTimeout(function() {
-      if (+new Date - clickedAt < 500) {
-        window.location.replace(_APP_DEEP_LINK_URL);
-      } else {
-        window.close();
-      }
-    }, 200);
-    window.location.href = _APP_DEEP_LINK;
-    window.addEventListener('pagehide', preventPopup);
+  <script> 
+  function setScheme() {
+    document.getElementById("scheme").value =
+    "himartapp://https://www.e-himart.co.kr/app/displayPlan/listPlanDetail?spdpNo=12109";
   }
     
+  function setLMS_P_SHOP() {
+    document.getElementById("scheme").value =
+    "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
+  }
+    
+  function setLMS_P_SHOP_S() {
+    document.getElementById("scheme").value =
+    "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP_S&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
+  }
+
   function openScheme() {
     const url = document.getElementById('scheme').value.trim();
     if (!url) return alert("URL 또는 스킴을 입력하세요.");
