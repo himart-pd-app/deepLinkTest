@@ -28,24 +28,40 @@
       resize: vertical;
       line-height: 1.5;
     }
-    button {
-      width: 100%;
-      padding: 16px;
+    .button-row {
+      display: flex;
+      gap: 10px;
       margin-top: 16px;
+    }
+  
+    .button-row button {
+      flex: 1;
+      padding: 14px 0;
       font-size: 16px;
+      background: #6f42c1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  
+    .button-row button:active {
+      opacity: 0.85;
+    }
+  
+    .call-button {
+      width: 100%;
+      padding: 18px 0;
+      margin-top: 20px;
+      font-size: 18px;
       background: #0366d6;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
-    button:nth-of-type(2) {
-      background: #28a745;
-    }
-    button:nth-of-type(3) {
-      background: #6f42c1;
-    }
-    button:active {
+  
+    .call-button:active {
       opacity: 0.85;
     }
   </style>
@@ -60,10 +76,12 @@
   <!-- 기본 테스트 값 자동 입력 -->
   <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
 
-  <button onclick="setScheme()">스키마 호출 테스트</button>
-  <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
-  <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
-	<br>
+  <p>샘플 데이터 세팅</p>
+  <div class="button-row">
+    <button onclick="setScheme()">스키마</button>
+    <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
+    <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
+  </div>
   <button onclick="openScheme()">window.location.href 테스트</button>
 
   <script> 
