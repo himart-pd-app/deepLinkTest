@@ -31,13 +31,13 @@
     .button-row {
       display: flex;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 2px;
     }
   
     .button-row button {
       flex: 1;
-      padding: 14px 0;
-      font-size: 16px;
+      padding: 12px 0;
+      font-size: 14px;
       background: #6f42c1;
       color: #fff;
       border: none;
@@ -53,7 +53,7 @@
       width: 100%;
       padding: 18px 0;
       margin-top: 20px;
-      font-size: 18px;
+      font-size: 16px;
       background: #0366d6;
       color: white;
       border: none;
@@ -71,7 +71,7 @@
   <h2>📱 DeepLink 테스트 페이지</h2>
 
   <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
-  Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출 테스트를 할 수 있습니다.</p>
+  Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출</b> 테스트를 할 수 있습니다.</p>
 
   <!-- 기본 테스트 값 자동 입력 -->
   <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
@@ -82,7 +82,7 @@
     <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
     <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
   </div>
-  <button onclick="openScheme()">window.location.href 테스트</button>
+  <button class="call-button" onclick="openScheme()">window.location.href 테스트</button>
 
   <script> 
   function setScheme() {
