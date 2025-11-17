@@ -112,7 +112,7 @@
       }
 
       const decodedUrl = decodeURIComponent(params.url);
-      const mode = (params.P === 'SHOP_P') ? 'store' : 'web';
+      const mode = (params.P === 'SHOP_S') ? 'store' : 'web';
 
       console.log('[parseAndRun] 파싱 결과:', { decodedUrl, mode, rawParams: params });
 
