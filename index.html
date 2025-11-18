@@ -151,20 +151,17 @@
         let text = textarea.value.trim();
     
         if (!text) {
-          const defaultUrl = `https://${newSLD}.e-himart.co.kr/`;
-          textarea.value = defaultUrl;
+          textarea.value = `https://${newSLD}.e-himart.co.kr/`;
           return;
         }
     
-        const urlRegex = /(https?:\/\/)([^\/]+)/i;
-        const match = text.match(urlRegex);
+        const match = text.match(/(https?:\/\/)([^\/]+)/i);
     
         if (!match) {
           alert("URL 패턴(http/https)이 포함되어 있지 않습니다.");
           return;
         }
     
-        const protocol = match[1];
         const host = match[2];
     
         let parts = host.split(".");
@@ -173,11 +170,8 @@
           return;
         }
     
-        parts[0] = newSLD;
-        const newHost = parts.join(".");
-        const newText = text.replace(host, newHost);
-    
-        textarea.value = newText;
+        parts[0] = newSLD;    
+        textarea.value = text.replace(host, parts.join("."));
       }
   
       function openScheme() {
