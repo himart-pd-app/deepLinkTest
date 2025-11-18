@@ -1,137 +1,182 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DeepLink Test</title>
-  <style>
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-      padding: 24px; 
-      line-height: 1.8; 
-      font-size: 16px;
-    }
-    h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-    textarea {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 16px;
-      margin-top: 16px;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      height: 240px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-    p {
-      margin: 16px 0 4px 0;
-    }
-    .button-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 2px;
-    }
-  
-    .button-row button {
-      flex: 1;
-      padding: 12px 0;
-      font-size: 14px;
-      background: #6f42c1;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  
-    .button-row button:active {
-      opacity: 0.85;
-    }
-  
-    .call-button {
-      width: 100%;
-      padding: 18px 0;
-      margin-top: 20px;
-      font-size: 16px;
-      background: #0366d6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  
-    .call-button:active {
-      opacity: 0.85;
-    }
-  </style>
-</head>
-<body>
-
-  <h2>📱 DeepLink 테스트 페이지</h2>
-
-  <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
-  Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출</b> 테스트를 할 수 있습니다.</p>
-
-  <!-- 기본 테스트 값 자동 입력 -->
-  <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
-
-  <p>샘플 데이터 세팅</p>
-  <div class="button-row">
-    <button onclick="setScheme()">스키마</button>
-    <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
-    <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
-  </div>
-  <button class="call-button" onclick="openScheme()">window.location.href 테스트</button>
-
-  <script> 
-  function setScheme() {
-    document.getElementById("scheme").value =
-    "himartapp://https://www.e-himart.co.kr/app/displayPlan/listPlanDetail?spdpNo=12109";
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DeepLink Test</title>
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+        padding: 24px; 
+        line-height: 1.8; 
+        font-size: 16px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      textarea {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px;
+        margin-top: 16px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        height: 180px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      p {
+        margin: 16px 0 4px 0;
+      }
+      .button-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 2px;
+      }
     
-  function setLMS_P_SHOP() {
-    document.getElementById("scheme").value =
-    "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
-  }
+      .button-row button {
+        flex: 1;
+        padding: 12px 0;
+        font-size: 14px;
+        background: #6f42c1;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
     
-  function setLMS_P_SHOP_S() {
-    document.getElementById("scheme").value =
-    "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP_S&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
-  }
-
-  function openScheme() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL 또는 스킴을 입력하세요.");
-    console.log("window.location.href =", url);
-    window.location.href = url;
-  }
-
-  function openByIframe() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL 또는 스킴을 입력하세요.");
-    console.log("iframe.src =", url);
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
-  }
-
-  function openAsLink() {
-    const url = document.getElementById('scheme').value.trim();
-    if (!url) return alert("URL 또는 스킴을 입력하세요.");
-    const a = document.createElement('a');
-    a.href = url;
-    a.innerText = "테스트 링크 (클릭)";
-    a.style.display = 'block';
-    a.style.fontSize = "22px";
-    a.style.marginTop = "16px";
-    document.body.appendChild(a);
-  }
-  </script>
-
-</body>
+      .button-row button:active {
+        opacity: 0.85;
+      }
+    
+      .call-button {
+        width: 100%;
+        padding: 18px 0;
+        margin-top: 20px;
+        font-size: 16px;
+        background: #0366d6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    
+      .call-button:active {
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <h2>📱 DeepLink 테스트 페이지</h2>
+  
+    <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
+    Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출</b> 테스트를 할 수 있습니다.</p>
+  
+    <!-- 기본 테스트 값 자동 입력 -->
+    <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
+  
+    <p>샘플 데이터 세팅</p>
+    <div class="button-row">
+      <button onclick="setScheme()">스키마</button>
+      <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
+      <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
+    </div>
+    <p>도메인 변환</p>
+    <div class="button-row">
+      <button onclick="setSLD('www')">www</button>
+      <button onclick="setSLD('secure')">secure</button>
+      <button onclick="setSLD('tst')">tst</button>
+      <button onclick="setSLD('securetst')">securetst</button>
+      <button onclick="setSLD('m')">m</button>
+      <button onclick="setSLD('msecure')">msecure</button>
+      <button onclick="setSLD('mtst')">mtst</button>
+      <button onclick="setSLD('msecuretst')">msecuretst</button>
+    </div>
+    <button class="call-button" onclick="openScheme()">window.location.href 테스트</button>
+  
+    <script>
+      function setScheme() {
+        document.getElementById("scheme").value =
+        "himartapp://https://www.e-himart.co.kr/app/displayPlan/listPlanDetail?spdpNo=12109";
+      }
+        
+      function setLMS_P_SHOP() {
+        document.getElementById("scheme").value =
+        "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
+      }
+        
+      function setLMS_P_SHOP_S() {
+        document.getElementById("scheme").value =
+        "https://mtst.e-himart.co.kr/LMS.jsp?P=SHOP_S&deepUrl=http://m.e-himart.co.kr/app/goods/goodsDetail?goodsNo=0053780342&fromShop=m_enuri&utm_source=enuri&utm_medium=PRICE&utm_campaign=m_enuri&referrer=m_enuri&ch=1762990488671&from=en&pType=&from=";
+      }
+  
+      function setSLD(newSLD) {
+        const textarea = document.getElementById("scheme");
+        let text = textarea.value.trim();
+    
+        if (!text) {
+          const defaultUrl = `https://${newSLD}.e-himart.co.kr/`;
+          textarea.value = defaultUrl;
+          return;
+        }
+    
+        const urlRegex = /(https?:\/\/)([^\/]+)/i;
+        const match = text.match(urlRegex);
+    
+        if (!match) {
+          alert("URL 패턴(http/https)이 포함되어 있지 않습니다.");
+          return;
+        }
+    
+        const protocol = match[1];
+        const host = match[2];
+    
+        let parts = host.split(".");
+        if (parts.length < 3) {
+          alert("호스트 구조가 예상과 다릅니다.");
+          return;
+        }
+    
+        parts[0] = newSLD;
+        const newHost = parts.join(".");
+        const newText = text.replace(host, newHost);
+    
+        textarea.value = newText;
+      }
+  
+      function openScheme() {
+        const url = document.getElementById('scheme').value.trim();
+        if (!url) return alert("URL 또는 스킴을 입력하세요.");
+        console.log("window.location.href =", url);
+        window.location.href = url;
+      }
+    
+      function openByIframe() {
+        const url = document.getElementById('scheme').value.trim();
+        if (!url) return alert("URL 또는 스킴을 입력하세요.");
+        console.log("iframe.src =", url);
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+      }
+    
+      function openAsLink() {
+        const url = document.getElementById('scheme').value.trim();
+        if (!url) return alert("URL 또는 스킴을 입력하세요.");
+        const a = document.createElement('a');
+        a.href = url;
+        a.innerText = "테스트 링크 (클릭)";
+        a.style.display = 'block';
+        a.style.fontSize = "22px";
+        a.style.marginTop = "16px";
+        document.body.appendChild(a);
+      }
+    </script>
+  
+  </body>
 </html>
