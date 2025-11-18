@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DeepLink Test</title>
     <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
       body { 
         font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
         padding: 0 24px 24px 24px; 
         line-height: 1.8; 
         font-size: 16px;
+      }
+      .page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+      .scroll-area {
+        flex: 1;
+        overflow-y: auto;
+        padding-bottom: 8px;
       }
       h2 {
         font-size: 20px;
@@ -71,35 +87,38 @@
     </style>
   </head>
   <body>
-  
-    <h2>📱 DeepLink 테스트 페이지</h2>
-  
-    <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
-    Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출</b> 테스트를 할 수 있습니다.</p>
-  
-    <!-- 기본 테스트 값 자동 입력 -->
-    <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
-  
-    <p>샘플 데이터 세팅</p>
-    <div class="button-row">
-      <button onclick="setScheme()">스키마</button>
-      <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
-      <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
+    <div class="page">
+      <div class="scroll-area">
+        <h2>📱 DeepLink 테스트 페이지</h2>
+      
+        <p>아래 스킴 또는 URL을 넣고 버튼을 눌러 테스트하세요.<br>
+        Safari / Chrome / 인앱 브라우저에서 <b>window.location.href 호출</b> 테스트를 할 수 있습니다.</p>
+      
+        <!-- 기본 테스트 값 자동 입력 -->
+        <textarea id="scheme" placeholder="url이나 스키마 입력"></textarea>
+      
+        <p>샘플 데이터 세팅</p>
+        <div class="button-row">
+          <button onclick="setScheme()">스키마</button>
+          <button onclick="setLMS_P_SHOP()">LMS?P=SHOP</button>
+          <button onclick="setLMS_P_SHOP_S()">LMS?P=SHOP_S</button>
+        </div>
+        <p>도메인 변환</p>
+        <div class="button-row">
+          <button onclick="setSLD('www')">www</button>
+          <button onclick="setSLD('secure')">secure</button>
+          <button onclick="setSLD('tst')">tst</button>
+          <button onclick="setSLD('securetst')">securetst</button>
+        </div>
+        <div class="button-row">
+          <button onclick="setSLD('m')">m</button>
+          <button onclick="setSLD('msecure')">msecure</button>
+          <button onclick="setSLD('mtst')">mtst</button>
+          <button onclick="setSLD('msecuretst')">msecuretst</button>
+        </div>
+      </div>
+      <button class="call-button" onclick="openScheme()">window.location.href 테스트</button>
     </div>
-    <p>도메인 변환</p>
-    <div class="button-row">
-      <button onclick="setSLD('www')">www</button>
-      <button onclick="setSLD('secure')">secure</button>
-      <button onclick="setSLD('tst')">tst</button>
-      <button onclick="setSLD('securetst')">securetst</button>
-    </div>
-    <div class="button-row">
-      <button onclick="setSLD('m')">m</button>
-      <button onclick="setSLD('msecure')">msecure</button>
-      <button onclick="setSLD('mtst')">mtst</button>
-      <button onclick="setSLD('msecuretst')">msecuretst</button>
-    </div>
-    <button class="call-button" onclick="openScheme()">window.location.href 테스트</button>
   
     <script>
       function setScheme() {
